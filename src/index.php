@@ -1,4 +1,5 @@
 <?php
+
 /* config */
 $dest_host = "example.com"; //Destination domain
 $proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location'); // server -> client
@@ -12,6 +13,8 @@ curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
+curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 
 /* headers */
 if(isset($_SERVER['HTTP_COOKIE'])){
@@ -25,25 +28,34 @@ if(sizeof($_POST) > 0){curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST);}
 
 $res = curl_exec($ch);
 
+
 curl_close($ch);
 /* parse response */
 list($headers, $body) = explode("\r\n\r\n", $res, 2);
+
 $headers = explode("\r\n", $headers);
 $hs = array();
 foreach($headers as $header){
     if(false !== strpos($header, ':')){
         list($h, $v) = explode(':', $header);
-        $hs[$h] = $v;
+        $hs[$h][] = $v;
     } else {
-        $header1 = $header;
+	$header1  = $header;
     }
 }
 
 /* set headers */
-header($header1);
+list($proto, $code, $text) = explode(' ', $header1);
+header($_SERVER['SERVER_PROTOCOL'].' '.$code.' '.$text);
 foreach($proxied_headers as $hname){
     if(isset($hs[$hname])){
-        header($hname.": ".$hs[$hname]);
+	foreach($hs[$hname] as $v){
+	    if($hname === 'Set-Cookie'){
+		header($hname.": ".$v, false);
+	    }else{
+		header($hname.": ".$v);
+	    }
+	}
     }
 }
 
