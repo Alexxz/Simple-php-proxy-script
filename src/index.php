@@ -1,9 +1,15 @@
 <?php
+/* 
+    To start with this script you just need to edit CONFIG section
+    of this file.
+*/
 
-/* config */
-$dest_host = "example.com"; //Destination domain
-$proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location'); // server -> client
-
+/************** CONFIG **************/
+$dest_host = "example.com"; // What is destination site
+/************** CONFIG **************/
+/************** EXPERT CONFIG **************/
+$proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location'); // What headers proxy from origin to client
+/************** EXPERT CONFIG **************/
 
 /* Init CURL */
 $ch = curl_init();
@@ -16,20 +22,17 @@ curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
 curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 
-/* headers */
-if(isset($_SERVER['HTTP_COOKIE'])){
-    $hdrs[]="Cookie: ".$_SERVER['HTTP_COOKIE'];
-}
-$hdrs[]="User-Agent:".$_SERVER['HTTP_USER_AGENT'];
+/* Collect and pass client request headers */
+if(isset($_SERVER['HTTP_COOKIE']))     { $hdrs[]="Cookie: ".$_SERVER['HTTP_COOKIE'];        }
+if(isset($_SERVER['HTTP_USER_AGENT'])) { $hdrs[]="User-Agent: ".$_SERVER['HTTP_USER_AGENT']; }
 curl_setopt($ch, CURLOPT_HTTPHEADER, $hdrs);
 
-/* POST */
-if(sizeof($_POST) > 0){curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST);}
+/* pass POST params */
+if(sizeof($_POST) > 0){ curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST); }
 
 $res = curl_exec($ch);
-
-
 curl_close($ch);
+
 /* parse response */
 list($headers, $body) = explode("\r\n\r\n", $res, 2);
 
@@ -60,4 +63,3 @@ foreach($proxied_headers as $hname){
 }
 
 die($body);
-
