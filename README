@@ -1,4 +1,0 @@
-This is simple php proxy script. It can be used when other proxies like
-nginx or lighttpd can not.
-Just put files into root of your website and change the destination site 
-in file index.php
