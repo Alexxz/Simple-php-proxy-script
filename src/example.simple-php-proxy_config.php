@@ -18,6 +18,8 @@ $dest_host = "example.com";
 /*
 Location of your proxy index script relative to your web root
 The first slash is needed the trailing slash is optional
+
+Use '/' if you place index.php on the root level.
 */
 $proxy_base_url = '/simple-php-proxy/src';
 

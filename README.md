@@ -10,14 +10,16 @@ You can also specify a number of headers that are proxied.
 
 ### Installation Usage
 
-Download and put the files into an accessible path on your website. Then copy src/example.config.php 
-to src/config.php and change the settings in there accordingly.
+Download and put the files into an accessible path on your website. Then copy src/example.simple-php-proxy_config.php 
+to src/simple-php-proxy_config.php or to one or two levels above. Finally change the config values accordingly.
 
 A request looks like this:
 
     http://www.alice.com/folder/simple-php-proxy/src/index.php/my_other_uri/that/resides/on/bob
+    or without the index.php
+    http://www.alice.com/folder/simple-php-proxy/src/my_other_uri/that/resides/on/bob
 
-and the part after index.php gets proxied to your specified domain. The script then outputs what it receives from:
+and the part "/my_other_uri/that/resides/on/bob" gets proxied to your specified domain. The script then outputs what it receives from:
 
     http://bob.com/my_other_uri/that/resides/on/bob
 
