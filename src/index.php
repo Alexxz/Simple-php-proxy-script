@@ -13,11 +13,11 @@ define('CONFIG_FILE', 'simple-php-proxy_config.php');
     For an explanation of the config variables see example.simple-php-proxy_config.php
 */
 
-//$dest_host = "bash.org";
+$dest_host = "bash.org";
 
-//$proxy_base_url = '/';
+$proxy_base_url = '/';
 
-//$proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location');
+$proxied_headers = array('Set-Cookie', 'Content-Type', 'Cookie', 'Location');
 
 // Variables you specify in the config file overwrite variables set above.
 foreach( array('./', '../', '../../') as $path_rel )
