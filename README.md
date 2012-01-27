@@ -8,7 +8,7 @@ This is a simple php proxy script. It can be used where it is difficult to use o
 nginx or lighttpd. You can currently specify one single domain that this script proxies to.
 You can also specify a number of headers that are proxied.
 
-### Installation Usage
+### Installation & Usage
 
 Download and put the files into an accessible path on your website. Then copy src/example.simple-php-proxy_config.php 
 to src/simple-php-proxy_config.php or to one or two levels above. Finally change the config values accordingly.

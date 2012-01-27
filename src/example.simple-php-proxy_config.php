@@ -12,16 +12,19 @@ A request to "http://www.alice.com/folder/simple-php-proxy/src/index.php/my_othe
 would now be proxied to
 "http://bob.com/my_other_uri/that/resides/on/bob"
 and the output returned
+
+replace this to where you want to proxy
 */
-$dest_host = "example.com"; 
+$dest_host = "bash.org";
 
 /*
 Location of your proxy index script relative to your web root
 The first slash is needed the trailing slash is optional
 
-Use '/' if you place index.php on the root level.
+Use '/my_project/simple-php-proxy/src' if you place the whole folder within your project
+or for usage at webroot level use '/'
 */
-$proxy_base_url = '/simple-php-proxy/src';
+$proxy_base_url = '/';
 
 /*
 What headers to proxy from destination host to client
