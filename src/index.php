@@ -77,7 +77,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $hdrs);
 /* pass POST params */
 if( sizeof($_POST) > 0 )
 { 
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST); 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($_POST)); 
 }
 
 $res = curl_exec($ch);
