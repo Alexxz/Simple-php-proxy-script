@@ -49,6 +49,9 @@ if( strpos($proxy_request_url, 'index.php') === 0 )
 }
 
 //final proxied request url
+//for ssl uncomment this line
+// /$proxy_request_url = "https://" . rtrim($dest_host, '/ ') . '/' . $proxy_request_url;
+// and comment this line
 $proxy_request_url = "http://" . rtrim($dest_host, '/ ') . '/' . $proxy_request_url;
 
 /* Init CURL */
@@ -58,6 +61,8 @@ curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+//for ssl uncomment this line
+//curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
 curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 
